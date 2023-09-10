@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .contain{
+            border: 5px solid silver;
+        }
+        .table{
+            border: 1px solid black;
+            width: 100%;
+            border-collapse: collapse ;
+        }
+        .head{
+            background-color: rgb(160, 27, 27);
+            color: white;
+        }
+        .head_one{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            padding: 0;
+        }
+        .head_two{
+            margin: 0;
+            width: 45%;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .head_three{
+            background-color: rgb(129, 16, 16);
+            text-align: center;
+        }
+        .head_three_one{
+            display: flex;
+            justify-content: center;
+        }
+        #start{
+            font-size: 10px;
+            margin: 2px;
+            padding: 0 5px;
+            font-weight: 600;
+
+        }
+        #reset{
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px;
+            padding: 0 5px;
+
+        }
+        #delete{
+            padding: 0 2px 0 10px;
+            font-size: 12px;
+        }
+        #highScore{
+            padding-right: 5px;
+            font-size: 12px ;
+        }
+        .body{
+            border: 1px solid silver;
+        }
+        .body_two{
+            display: flex;
+        }
+        .setPoint{
+            width: 30%;
+            font-size: 16px;
+            text-align: center;
+            background-color: rgb(229, 191, 191);
+            border-radius: 5PX;
+        }
+        #point{
+            width: 40%;
+            text-align: center;
+        }
+        #input{
+            width: 100%;
+            border-color: rgb(160, 27, 27) ;
+            background-color: rgb(129, 16, 16);
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+        }
+        #addPlayer{
+            font-size: 11px;
+            width: 100%;
+            font-weight: 600;
+        }
+        .foot{
+            border: 1px solid rgb(160, 27, 27);
+            padding: 10px;
+            background-color: rgb(160, 27, 27);
+        }
+        .mystyle{
+            color: yellow !important;
+        }
+    </style>
+    <div class="contain">
+    <table class="table">
+        <tr class="head">
+            <td class="head_one">
+                <div class="head_two">
+                <p>Players:<span id="countPlayer">0</span></p>
+                <p>Total Point:<span id="totalPoints">0</span></p>
+                </div>
+                <h2>Rikkei Scoreboard</h2>
+            </td>
+            <td class="head_three">
+                <h3>Stopwatch</h3>
+                <h2 id="countTime">0</h2>
+                <div class="head_three_one"><button id="start">START</button><Button id="reset">RESET</Button></div>
+            </td>
+        </tr>
+        <tbody class="body">
+        <tr class="body">
+            <td>
+                <span class="material-symbols-outlined" id="delete">
+                close
+                </span>
+                <span class="material-symbols-outlined" id="highScore">
+                trophy
+                </span>    
+            </td>
+            <td class="body_two">
+                <div id="down" class="setPoint"> - </div>
+                <div id="point">0</div>
+                <div id="up" class="setPoint"> + </div>
+            </td>
+        </tr>
+        </tbody>
+        <tr class="foot">
+            <td class="foot"><input type="text" id="input"></td>
+            <td class="foot"><button id="addPlayer" onclick="addplayer()">ADD Player</button></td>
+        </tr>
+    </table>
+</div>
+    <script>
+        let input = document.getElementById("input")
+        let addPlayer = document.getElementById("addPlayer")
+        let bodyDisplay = document.getElementsByClassName("body")
+        let deletePlayer = document.getElementById("delete");
+        input.setAttribute("placeHolder","Enter a player's name")
+        let countPlayer = document.getElementById("countPlayer")
+        let totalPoints = document.getElementById("totalPoints")
+        let players = []
+        let num = 0;
+        // ham them player vao mang
+        function addplayer(){
+            name = input.value
+            let obj={
+                name:name,
+                point:num,
+                id:uuid(),
+            }
+            players.push(obj);
+            let countP = players.length
+            countPlayer.innerHTML= countP
+            console.log(countP);
+            renderPlayer(players)
+            input.value="";
+            num = 0;
+            console.log(players)
+        }
+        // ham tao id ngau nhien
+        function uuid(){
+            return Math.floor(Math.random() * 999999) + new Date().getMilliseconds();
+        }
+
+        // ham xoa player
+        function deleteplayer(index){
+            players.splice(index,1)
+            renderPlayer(players)
+            let count = countPlayer.innerHTML
+            let newCount = count - 1
+            countPlayer.innerHTML = newCount
+            totalPoint()
+        }
+
+        // ham tang diem
+        function upPoint(index){
+            players[index].point = players[index].point + 1
+            renderPlayer(players)
+            totalPoint()
+        }
+        // ham giam diem
+        function downPoint(index){
+            if(players[index].point > 0){
+            players[index].point = players[index].point- 1
+            renderPlayer(players)
+            totalPoint()
+            }else{
+            players[index].point = 0
+            renderPlayer(players)
+            totalPoint()
+            }
+        }
+        // ham tinh tong point 
+        function totalPoint(){
+            let total=0;
+            for(let i=0;i<players.length;i++){
+                total += players[i].point
+            }
+            totalPoints.innerHTML=total
+        }
+
+        // ham chay thoi gian tran dau
+        let start = document.getElementById("start")
+        
+        start.onclick=()=>{
+            let numm = 10
+            time = setInterval(timeDown=()=>{
+                countTime.innerHTML = numm;
+                numm--;
+                if(numm < 0){
+                clearInterval(time)
+                maxPoint()
+                }
+            },1000)
+            }
+
+        // ham reset lai thoi gian
+        let countTime = document.getElementById("countTime")
+        let reset = document.getElementById("reset")
+        reset.onclick=()=>{
+            clearInterval(time)
+            countTime.innerHTML = 0;
+             maxPoint()
+        }    
+        
+        //hàm tim diem cao nhat 
+        function maxPoint(){
+            let max = players[0].point
+            for(let i = 0 ; i<players.length;i++){
+                if(max < players[i].point){
+                    max = players[i].point
+                }
+            }
+            let idd = document.getElementsByClassName("idd")
+            for(let j=0;j<players.length;j++){
+                if(players[j].point == max){
+                   let list = idd[j].classList
+                   list.add("mystyle")
+                }
+            }
+        }
+
+        // hien thi danh sach cau thu
+        function renderPlayer(arr){
+            let text="";
+            for(let i=0;i<arr.length;i++){
+                text += `
+            <tr class="body">
+            <td>
+                <span class="material-symbols-outlined" id="delete" onclick="deleteplayer(${i})">
+                close
+                </span>
+                <span class="material-symbols-outlined" id="highScore" class="idd">
+                trophy
+                </span>
+                ${arr[i].name}    
+            </td>
+            <td class="body_two">
+                <div id="down" class="setPoint" onclick="downPoint(${i})"> - </div>
+                <div id="point">${arr[i].point}</div>
+                <div id="up" class="setPoint" onclick="upPoint(${i})"> + </div>
+            </td>
+            </tr>
+                `
+            }
+            bodyDisplay[0].innerHTML = text;
+        }
+    </script>
+</body>
+</html>

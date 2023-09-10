@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #input{
+            width: 92px;
+        }
+        #div{
+            width: 100px;
+            border: 1px solid black;
+            padding: 5px;
+        }
+        #result{
+            width: 45px;
+        }
+        #cong{
+            width: 30px;
+        }
+        #tru{
+            width: 30px;
+        }
+        #nhan{
+            width: 30px;
+        }
+    </style>
+    <div id="div">
+        <div><input type="text" name="" id="input"></div>
+        <div><button id="num1">1</button><button id="num2">2</button><button id ="num3">3</button><button id="cong">+</button></div>
+        <div><button id="num4">4</button><button id="num5">5</button><button id ="num6">6</button><button id="tru">-</button></div>
+        <div><button id="num7">7</button><button id="num8">8</button><button id ="num9">9</button><button id="nhan">*</button></div>
+        <div><button id="numAC">AC</button><button id ="result">=</button><button id="chia">/</button></div>
+        <script>
+            let input = document.getElementById("input")
+            let num1 = document.getElementById("num1")
+            let text=""
+            num1.onclick=()=>{
+                input.value = 1
+               display()
+               input.value = text
+            }
+            let num2 = document.getElementById("num2")
+            num2.onclick=()=>{
+                input.value = 2
+               display()
+               input.value = text
+            }
+            let num3 = document.getElementById("num3")
+            num3.onclick=()=>{
+                input.value = 3
+               display()
+               input.value = text
+            }
+            let num4 = document.getElementById("num4")
+            num4.onclick=()=>{
+                input.value = 4
+               display()
+               input.value = text
+            }
+            let num5 = document.getElementById("num5")
+            num5.onclick=()=>{
+                input.value = 5
+               display()
+               input.value = text
+            }
+            let num6 = document.getElementById("num6")
+            num6.onclick=()=>{
+                input.value = 6
+               display()
+               input.value = text
+            }
+            let num7 = document.getElementById("num7")
+            num7.onclick=()=>{
+                input.value = 7
+               display()
+               input.value = text
+            }
+            let num8 = document.getElementById("num8")
+            num8.onclick=()=>{
+                input.value = 8
+               display()
+               input.value = text
+            }
+            let num9 = document.getElementById("num9")
+            num9.onclick=()=>{
+                input.value = 9
+               display()
+               input.value = text
+            }
+            let cong = document.getElementById("cong")
+            cong.onclick=()=>{
+                input.value = "+"
+                display()
+                console.log(text)
+            }
+            let tru = document.getElementById("tru")
+            tru.onclick=()=>{
+                input.value = "-"
+                display()
+                console.log(text)
+            }
+            let nhan = document.getElementById("nhan")
+            nhan.onclick=()=>{
+                input.value = "*"
+                display()
+                console.log(text)
+            }
+            let chia = document.getElementById("chia")
+            chia.onclick=()=>{
+                input.value = "/"
+                display()
+                console.log(text)
+            }
+            let AC = document.getElementById("numAC")
+            AC.onclick = ()=>{
+                input.value = 0
+                text = 0
+            }
+            let result = document.getElementById("result")
+            result.onclick=()=>{
+               let a = text
+               let q = eval(a)
+               text = q
+               input.value = q
+               console.log(q);
+            }
+            function display(){
+                text += input.value  
+            }
+        </script>
+    </div>
+</body>
+</html>

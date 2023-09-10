@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        tr{
+            border: 1px solid black;
+        }
+        td{
+            border: 1px solid black;
+        }
+        tbody{
+            border: 1px solid black;
+        }
+        table{
+            border: 1px solid black;
+        }
+    </style>
+    <input type="text" placeholder="moi ban nhap cong viec" id="job">
+    <button onclick="addJob()" id="btn">add</button>
+    <table>
+        <tr>
+            <td>STT</td> 
+            <td>HO VA TEN</td> 
+            <td>ID</td> 
+            <td>sua</td> 
+            <td>xoa</td>
+        </tr> 
+    <tbody id="body">
+    </tbody>
+    </table>    
+    <!-- Các bước làm toDos lít 
+    b1:Tạo một mảng để lưu danh sách công việc 
+    b2:tạo ô input button(add) sau đó bắt sự kiện khi nhấn vào nút add lấy 
+    giá trị ô input
+    b3: sinh Id cho mỗi công việc rồi push vào mảng chứa danh sách công việc
+    b4: mang mảng danh sách công việc đi hiển thị  
+-->
+<script>
+    let jobs =[];
+    let flag = "add"
+    let indexUpdate;
+    function addJob(){
+        if(flag == "add"){
+        let job = document.getElementById("job").value;
+        let jobInfor = {
+            job:job,
+            id:uuid(),
+        }
+        jobs.push(jobInfor)
+        renderJobs(jobs)
+        document.getElementById("job").value=""
+    // function tao id cho moi cong viec de khi sua xoa theo id ma sua
+    
+    function uuid(){
+        return Math.floor(Math.random()*999999)+ new Date().getMilliseconds();
+    }
+    }else{
+        // let btn = document.getElementsById("btn")
+        // btn.innerHTML = "update"
+        let job = document.getElementById("job").value;
+        updateItem(job)
+        renderJobs(jobs)
+        flag = "add"
+        let btn = document.getElementById("btn")
+        console.log(btn);
+        btn.innerHTML = "add"
+        document.getElementById("job").value=""
+    }
+    }
+
+    // function hien thi cong viec
+
+    function renderJobs(listJobs){
+        let text="";
+        for(let i = 0;i<listJobs.length;i++){
+            text += `
+            <tr>
+                <td>${i+1}</td> 
+                <td>${listJobs[i].job}</td> 
+                <td>${listJobs[i].id}</td> 
+                <td onclick="noteFlag(${listJobs[i].id})">sua</td> 
+                <td onclick="deleteItem(${listJobs[i].id})">xoa</td>
+            </tr> 
+            `
+        }
+        document.getElementById("body").innerHTML = text;
+    }
+
+    function deleteItem(id){
+        for(let i=0;i<jobs.length;i++){
+            if(jobs[i].id == id){
+                jobs.splice(i,1)
+            }
+        }
+        console.log(jobs)
+        renderJobs(jobs)
+    }
+    function updateItem(text){
+        for(let i=0;i<jobs.length;i++){
+            if(jobs[i].id == indexUpdate){
+                jobs[i].job = text
+            }
+        }    
+    }
+    function noteFlag(id){
+        flag = "update"
+        indexUpdate = id;
+        let btn = document.getElementById("btn")
+        console.log(btn);
+        btn.innerHTML = "update"
+    }
+</script>
+</body>
+</html>

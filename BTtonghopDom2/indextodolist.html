@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #contain{
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: brown;
+        }
+        #input{
+            width: 300px;
+        }
+        ul{
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        .lii{
+            background-color: antiquewhite;
+            padding: 5px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid white;
+        }
+        .btn1{
+            background-color: antiquewhite;
+            border-color: white  ;
+            /* display: none; */
+        }
+     
+    </style>
+    <div id="div">
+        <div id="contain">
+            <h1>My To Do List</h1>
+            <div>
+            <input type="text" id="input">
+            <button id="btn">Add</button>
+            </div>
+        </div>
+        <ul id="listToDo">
+            <!-- <li><button>sua</button><button>xoa</button></li> -->
+        </ul>
+    </div>
+    <script>
+            // let toDos = ["home","do work"];
+            // localStorage.setItem("toDos",JSON.stringify(toDos))
+            let toDos = JSON.parse(localStorage.getItem("toDos"))
+            console.log(toDos);
+
+
+            let input = document.getElementById("input");
+            let btn = document.getElementById("btn")
+            let ul = document.getElementById("listToDo");
+            
+            let action = "add" 
+            let indexUpdate;
+            render();
+            function render(){
+                ul.innerHTML="";
+                toDos.forEach((todo,index)=>{
+                    ul.innerHTML += `<li class="lii" onmouseover="hover(${index})" onmouseout="out(${index})" >${todo} <div><button class="btn1" onclick="change(${index})">update</button><button class="btn1" onclick="deletee(${index})">x</button></div></li>`
+                })
+            }
+            function deletee(index){
+                toDos.splice(index,1);
+                render()
+                localStorage.setItem("toDos",JSON.stringify(toDos))
+            }
+            function create(){
+                let text = input.value
+                toDos.unshift(text)
+                render();
+                localStorage.setItem("toDos",JSON.stringify(toDos))
+            }
+            btn.addEventListener("click",()=>{
+                if(action == "add"){
+                create();
+                input.value=""
+                }else{
+                update()
+                action = "add"
+                btn.innerHTML="Add"
+                }
+            })
+            function update(){
+                toDos[indexUpdate] = input.value;
+                render()
+                localStorage.setItem("toDos",JSON.stringify(toDos))
+                input.value=""
+            }
+            function change(index){
+                action = "Update"
+                indexUpdate = index
+                btn.innerHTML="Update"
+            }
+            function hover(index){
+                let name = document.getElementsByTagName("li")
+                name[index].style.backgroundColor="silver"
+
+            }
+            function out(index){
+                let name = document.getElementsByTagName("li")
+                name[index].style.backgroundColor="antiquewhite"
+            }
+            
+    </script>
+</body>
+</html>

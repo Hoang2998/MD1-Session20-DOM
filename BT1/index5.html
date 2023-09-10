@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <div id="div">text</div>
+    <script>
+        let input = document.getElementById("input")
+        let div = document.getElementById("div")
+        input.oninput=()=>{
+            let text = input.value;
+            div.innerHTML=text
+        }
+        // input.onclick = ()=>{
+        //     let text = input.value;
+        //     div.innerHTML=text
+        // }
+        // div.onclick = ()=>{
+        //     div.innerHTML = input.value
+        // }
+
+    </script>
+</body>
+</html>

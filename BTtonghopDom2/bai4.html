@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: blueviolet;
+            color: aliceblue;
+            padding: 20px;
+        }
+        .btn{
+            background-color: blueviolet;
+            border-color: aliceblue;
+            color: aliceblue;
+        }
+        p{
+            width: 175px;
+        }
+    </style>
+    <div>
+        <h1>The Temperature Converter App</h1>
+        <p>Celcius</p>
+        <input type="text" class="btn">
+        <p>Fahrenheit</p>
+        <input type="text" class="btn">
+        <p>Kelvin</p>
+        <input type="text" class="btn">
+    </div>
+    <script>
+        let btn = document.getElementsByClassName("btn")
+        let num0=0;
+        let num1=0;
+        let num2=0;
+
+        btn[0].oninput = ()=>{
+            num0 = btn[0].value 
+            num1 = num0*9/5 +32
+            btn[1].value= num1
+            num2 = num1 + 273.15
+            btn[2].value= num2      
+        } 
+        btn[1].oninput = ()=>{
+            num1 = btn[1].value 
+            num0 = (num1-32)*5/9
+            num2 = (num1-32)*5/9 + 273.15
+            btn[0].value=num0
+            btn[2].value=num2
+        } 
+        btn[2].oninput = ()=>{
+            num2 = btn[2].value
+            num0 = num2-273.15
+            num1 = (num2-273.15)*9/5 +32
+            btn[0].value=num0
+            btn[1].value=num1
+        } 
+    </script>
+</body>
+</html>

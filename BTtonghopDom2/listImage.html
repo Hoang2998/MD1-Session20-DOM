@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #div{
+            width: 400px;
+            padding: 10px 20px;
+            background-color: black;
+            position: relative;
+        }
+        #contain{
+            /* border: 1px solid black; */
+            display: flex;
+            padding-top: 5px;
+            border-radius: 5px;
+        }
+        .add{
+            border: 1px solid white;
+            width: 70px;
+            height: 35px;
+            margin-right: 5px;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+        #showImage{
+            border: 1px solid white;
+            height: 200px;
+            border-radius: 5px;
+            background-image: url(./image/baby-bear.jpg);
+            background-size: 380px 200px;
+            background-repeat:no-repeat
+        }
+        .btn{
+            position: absolute;
+            bottom: 11px;
+            height: 35px;
+            background-color: black;
+            color: aliceblue;
+        }
+        #back{
+            left:0;
+        }
+        #move{
+            right:0;
+        }
+        #img1{
+            background-image: url(./image/baby-bear.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img2{
+            background-image: url(./image/bird.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img3{
+            background-image: url(./image/cat.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img4{
+            background-image: url(./image/curious-cat.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img5{
+            background-image: url(./image/dog.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img6{
+            background-image: url(./image/hamster.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+        #img7{
+            background-image: url(./image/dog.jpg);
+            background-size: 50px 35px;
+            background-repeat:no-repeat
+        }
+    </style>
+           <button class="btn" id="autoShow">autoShow</button>
+           <button class="btn" id="normarShow">normarShow</button>
+    <div id="div">
+        <div id="showImage"></div>
+        <div id="contain">
+            <button class="btn" id="back">&lt;</button>
+            <div class="add" id="img1"></div>
+            <div class="add" id="img2"></div>
+            <div class="add" id="img3"></div>
+            <div class="add" id="img4"></div>
+            <div class="add" id="img5"></div>
+            <div class="add" id="img6"></div>
+            <div class="add" id="img7"></div>
+            <button class="btn" id="move">&gt;</button>
+        </div>
+    </div>
+    <script>
+        let img1 = document.getElementById("img1")
+        let img2  = document.getElementById("img2")
+        let img3 = document.getElementById("img3")
+        let img4 = document.getElementById("img4")
+        let img5 = document.getElementById("img5")
+        let img6 = document.getElementById("img6")
+        let img7 = document.getElementById("img7")
+        let back = document.getElementById("back")
+        let move = document.getElementById("move")
+        let showImage = document.getElementById("showImage")
+        let contain = document.getElementById("contain")
+        let autoShow = document.getElementById("autoShow")
+        autoShow.style.bottom="0px"
+        let normarShow = document.getElementById("normarShow")
+        normarShow.style.left="85px"
+        normarShow.style.bottom="0px"
+        imgeArr = ["url(./image/baby-bear.jpg)","url(./image/bird.jpg)","url(./image/cat.jpg)","url(./image/curious-cat.jpg)","url(./image/dog.jpg)","url(./image/hamster.jpg)","url(./image/dog.jpg)"]
+        let images = document.getElementsByClassName("add")
+        console.log(images)
+        for(let i=0;i<imgeArr.length;i++){
+            images[i].onclick =()=> {
+                showImage.style.backgroundImage = imgeArr[i];
+                showImage.style.backgroundSize = "400px 200px";
+                showImage.style.backgroundRepeat = "no-repeat";
+                count = i
+            }
+            images[i].onmouseover=()=>{
+                zoomin(i)
+            }
+            images[i].onmouseout=()=>{
+                zoomout(i)
+            }
+            // images[i].onmouseout=`zoomout(${i})`;
+        }
+        console.log(images[0])
+        let count = 0;
+        function zoomin(index){
+            images[index].style.width = "100px";
+            images[index].style.height = "50px";
+            images[index].style.backgroundSize = "100px 50px";
+            contain.style.display="flex"
+            contain.style.alignItems="center"
+
+        }
+        function zoomout(index){
+            images[index].style.width = "50px";
+            images[index].style.height = "35px";
+            images[index].style.backgroundSize = "50px 35px";
+        }
+        back.onclick=()=>{
+            count--;
+            let id = count;
+            if(0 <= count && count <=6){
+                let id = count
+                let idd = +id + 1
+                zoomout(idd)
+                zoomin(id)
+                showimage(id)
+            }else if(count <0){
+                // let id = count
+                zoomout(0)
+                zoomin(6)
+                showimage(6)
+                count = 6;
+            }
+            console.log(count);
+        }
+        move.onclick=()=>{  
+            count++; 
+            if(0 <= count && count <= 6){
+                let id = count
+                let idd = +id - 1
+                zoomout(idd)
+                zoomin(id)
+                showimage(id)
+            }else if(count > 6){
+                zoomout(6)
+                zoomin(0)
+                showimage(0)
+                count = 0;
+            }
+        }
+            console.log(count);
+            autoShow.onclick=()=>{
+             time = setInterval(function(){
+                count++; 
+            if(0 <= count && count <= 6){
+                let id = count
+                let idd = +id - 1
+                zoomout(idd)
+                zoomin(id)
+                showimage(id)
+            }else if(count > 6){
+                zoomout(6)
+                zoomin(0)
+                showimage(0)
+                count = 0;
+            }}
+            ,2000)
+            }
+            normarShow.onclick=()=>{
+                clearInterval(time)
+            }
+        function showimage(id){
+            showImage.style.backgroundImage = imgeArr[id];
+            showImage.style.backgroundSize = "400px 200px";
+            showImage.style.backgroundRepeat = "no-repeat";
+        }           
+    </script>
+</body>
+</html>

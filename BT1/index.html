@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="bai1"></div>
+    <script>
+        let bai1 = document.getElementById("bai1")
+        bai1.style.display="flex"
+        bai1.style.alignItems="center"
+        bai1.style.justifyContent="space-between"
+        let p = document.createElement("p")
+        let input = document.createElement("input")
+        let a = document.createElement("a")
+        // a.setAttribute("href","")
+        a.innerHTML = "An tim kiem nang cao"
+        let select = document.createElement("select")
+        let option = document.createElement("option")
+        option.innerHTML="Quan ao"
+        select.appendChild(option)
+        let btn = document.createElement("button")
+        btn.innerHTML="Tim kiem"
+        p.innerHTML="nhap noi dung tim kiem"
+        bai1.appendChild(p)
+        bai1.appendChild(input)
+        bai1.appendChild(a)
+        bai1.appendChild(select)
+        bai1.appendChild(btn)
+        let action = "hide"
+        a.addEventListener("click", ()=>{
+            if(action == "hide"){
+                select.style.display="none"
+                a.innerHTML="tim kiem nang cao"
+                action = "unhide"
+            }else{
+                select.style.display="block"
+                a.innerHTML="An tim kiem nang cao"
+                action = "hide"
+            }
+        })
+        
+    </script>
+</body>
+</html>

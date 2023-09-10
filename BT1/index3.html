@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Create New Item</h1>
+        <label>Item</label>
+        <input type="text" id="input">
+        <button id="btn">Add</button>
+        <ul></ul>
+    </div>
+    <script>
+            let arr = ["nho my", "tao tau"]
+            let ul = document.getElementsByTagName("ul")
+            let input = document.getElementById("input")
+            let btn = document.getElementById("btn")
+            input.style.backgroundColor = "yellow"
+
+            function show() {
+                for (let i = 0; i < arr.length; i++) {
+                    let li = document.createElement("li")
+                    li.innerHTML = arr[i]
+                    ul[0].appendChild(li)
+                    input.oninput = (() => {
+                        doimau()
+                    })
+                }
+            }
+            function doimau() {
+                let text = input.value
+                if (text == "") {
+                    input.style.backgroundColor = "yellow"
+                } else {
+                    input.style.backgroundColor = "white"
+                }
+            }
+            input.oninput = (() => {
+                doimau()
+            })
+            btn.onclick = (() => {
+                arr.unshift(input.value)
+                console.log(arr);
+                ul[0].innerHTML = ""
+                input.value = "";
+                doimau()
+                show()
+            })
+    </script>
+</body>
+</html>
